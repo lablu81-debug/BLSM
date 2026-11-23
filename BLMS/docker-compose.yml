@@ -1,0 +1,19 @@
+services:
+  blms:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      NODE_ENV: production
+      SESSION_SECRET: ${SESSION_SECRET:?set SESSION_SECRET in .env}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      TRUST_PROXY: ${TRUST_PROXY:-false}
+      AUTO_SEED: ${AUTO_SEED:-true}
+      SEED_DEMO_USERS: ${SEED_DEMO_USERS:-false}
+      DEMO_PASSWORD: ${DEMO_PASSWORD:-}
+    volumes:
+      - blms-data:/data
+volumes:
+  blms-data:
